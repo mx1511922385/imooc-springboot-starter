@@ -1,17 +1,22 @@
 package com.imooc.imoocspringbootstarter.UserController;
 
 import com.imooc.imoocspringbootstarter.Tesks.AsnycTask;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.concurrent.Future;
 
+@Api(tags={"Permission"},description = "null")
 @RestController
 @RequestMapping("/resources")
 public class AsyncController {
     @Autowired
     private AsnycTask async;
+
+    @ApiOperation(value="test",notes="test")
     @RequestMapping("test1")
     public String test1() throws Exception {
         long start =System.currentTimeMillis();

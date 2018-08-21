@@ -5,6 +5,7 @@ import com.imooc.imoocspringbootstarter.UserController.interceptor.twoIntercepto
 import com.sun.xml.internal.bind.v2.runtime.unmarshaller.Intercepter;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
 /*
@@ -18,9 +19,19 @@ public class WebMvcConfigurer extends WebMvcConfigurationSupport{
         /*
         *拦截器按照顺序执行
         * */
-        registry.addInterceptor(new oneIntercepter()).addPathPatterns("/one/**");
-        registry.addInterceptor(new twoInterceptor()).addPathPatterns("/two/**");
+        registry.addInterceptor(new oneIntercepter()).addPathPatterns("/one/**").excludePathPatterns("/swagger-resources/**", "/webjars/**", "/v2/**", "/swagger-ui.html/**");
+
+        //registry.addInterceptor(new twoInterceptor()).addPathPatterns("/two/**");
         super.addInterceptors(registry);
     }
+
+    @Override
+    protected void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("swagger-ui.html")
+                .addResourceLocations("classpath:/META-INF/resources/");
+        registry.addResourceHandler("/webjars/**")
+                .addResourceLocations("classpath:/META-INF/resources/webjars/");
+    }
+
 
 }
